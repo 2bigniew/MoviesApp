@@ -4,3 +4,5 @@ const fs = require('fs');
 const mysql = require('mysql');
 
 const app = express();
+
+console.log('Hello world');
