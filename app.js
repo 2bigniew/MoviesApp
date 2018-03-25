@@ -6,6 +6,12 @@ const mysql = require('mysql');
 const app = express();
 
 const con = require('./database/connection');
+
+if(con.state === 'disconnected'){
+  con.connect( err => {
+    if (err) throw err;
+  });
+
 const moviesRoutes = require('./api/routes/movies');
 const commentsRoutes = require('./api/routes/comments');
 
