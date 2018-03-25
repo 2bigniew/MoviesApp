@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Welcome in MoviesApp on Heroku</title>
+  </head>
+  <body>
+    <h1>Movies RESTful API!</h1>
+    <br>
+    <hr>
+    <h2>Search movie in OMDb API and add it to MoviesApp database.</h2>
+    <h3>Request: </h3>
+    <p>MovieApp URL/movies/Title</p>
+    <h3>Request type: </h3>
+    <p>POST</p>
+    <br>
+    <hr>
+    <h2>Show list of all movies already present in application database.</h2>
+    <h3>Request: </h3>
+    <p>MovieApp URL/movies</p>
+    <h3>Request type: </h3>
+    <p>GET</p>
+    <br>
+    <hr>
+    <h2>Show sorted list of all movies already present in application database.</h2>
+    <h3>Request: </h3>
+    <p>MovieApp URL/movies/list/sort?Option=Number</p>
+    <h3>Request type: </h3>
+    <p>GET</p>
+    <h3>Sort options (Numbers): </h3>
+    <p>1: MovieId</p>
+    <p>2: Title</p>
+    <p>3: Year</p>
+    <p>4: imbdID</p>
+    <p>5: Type</p>
+    <p>6: Poster</p>
+    <br>
+    <hr>
+    <h2>Filter movies from database by Keyword</h2>
+    <h3>Request: </h3>
+    <p>MovieApp URL/movies/find?Title=Keyword</p>
+    <h3>Request type: </h3>
+    <p>GET</p>
+    <h3>Keyword: </h3>
+    <p>Keyword would be title or title's part</p>
+    <br>
+    <hr>
+    <h2>Add comment to movie</h2>
+    <h3>Request: </h3>
+    <p>MovieApp URL/comments/MovieID&comment</p>
+    <h3>Request type: </h3>
+    <p>POST</p>
+    <h3>!IMPORTANT!</h3>
+    <p>Note request require MovieID (Not imbdID)</p>
+    <br>
+    <hr>
+    <h2>Show list of all movies already present in application database.</h2>
+    <h3>Request: </h3>
+    <p>MovieApp URL/comments</p>
+    <h3>Request type: </h3>
+    <p>GET</p>
+    <br>
+    <hr>
+    <h2>Filter comments from database by MovieID</h2>
+    <h3>Request: </h3>
+    <p>MovieApp URL/comments/find?Id=MovieId</p>
+    <h3>Request type: </h3>
+    <p>GET</p>
+  </body>
+</html>
