@@ -25,20 +25,3 @@ CREATE TABLE comments(
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 );
-
-DROP TABLE movies;
-DROP TABLE comments;
-
-SELECT * FROM movies;
-SELECT * FROM comments;
-
-SELECT imbdID FROM movies WHERE imbdID = 1;
-
-SELECT
-    id_movie AS 'Movie ID',
-    title AS 'Title',
-    m_year AS 'Year',
-    imbdID ,
-    m_type AS 'Type',
-    poster AS 'Poster'
-    FROM movies ORDER BY 7 ASC;
