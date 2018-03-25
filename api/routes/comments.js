@@ -7,12 +7,12 @@ const con = require('../../database/connection');
 const queries = require('../../database/queries');
 
 router.post('/:id&:comment', (req, res, next) => {
+  const movieId = req.params.id;
+  const comment = req.params.comment;
   pool.getConnection((err, con) => {
     if (err) {
       res.send('Error ocured');
     } else {
-      const movieId = req.params.id;
-      const comment = req.params.comment;
       con.query(queries.addComment(comment, movieId), (err, result) => {
         if (err) res.status(500).json({
           message: 'SQL Error. Make sure you passed corect movieId',

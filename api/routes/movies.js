@@ -121,11 +121,11 @@ router.get('/list/:sort', (req, res, next) => {
 // });
 
 router.post('/:title', (req, res, next) => {
+  const movieTitle = helpers.validateTitle(req.params.title);
   pool.getConnection((err, con) => {
     if (err) {
       res.send('Error ocured');
     } else {
-      const movieTitle = helpers.validateTitle(req.params.title);
       axios.get('http://www.omdbapi.com/?s='+movieTitle+'&apikey=b3a0b8c6')
         .then(response => {
           con.query(queries.addMovie(
