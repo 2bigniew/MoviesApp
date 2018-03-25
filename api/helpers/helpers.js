@@ -10,6 +10,16 @@ const helpers = {
       }
     });
     return arr.join('');
+  },
+  validateMovieId = function(movieId) {
+    let MovieIdArr = movieId.split('');
+    let arr = [];
+    MovieIdArr.map( x => {
+      if(parsenInt(x) === true){
+        arr.push(x)
+      }
+    });
+    return parseInt(arr.join(''));
   }
 };
 

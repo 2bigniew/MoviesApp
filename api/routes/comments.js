@@ -5,9 +5,10 @@ const axios = require('axios');
 const pool = require('../../database/pool');
 const con = require('../../database/connection');
 const queries = require('../../database/queries');
+const helpers = require('../helpers/helpers');
 
 router.post('/:id&:comment', (req, res, next) => {
-  const movieId = req.params.id;
+  const movieId = helpers.validateMovieId(req.params.id);
   const comment = req.params.comment;
   pool.getConnection((err, con) => {
     if (err) {
@@ -81,7 +82,7 @@ router.get('/:find', (req, res, next) => {
         con.release();
       });
     }
-  });  
+  });
 });
 
 module.exports = router;
