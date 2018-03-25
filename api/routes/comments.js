@@ -8,22 +8,27 @@ const queries = require('../../database/queries');
 const helpers = require('../helpers/helpers');
 
 router.post('/:id&:comment', (req, res, next) => {
-  const movieId = helpers.validateMovieId(req.params.id);
+  const movieId = req.params.id;
   const comment = req.params.comment;
   pool.getConnection((err, con) => {
     if (err) {
       res.send('Error ocured');
+      con.release();
     } else {
-      con.query(queries.addComment(comment, movieId), (err, result) => {
-        if (err) res.status(500).json({
+      con.query(queries.addComment(req.params.comment, req.params.id), (err, result) => {
+        if (err) {res.status(500).json({
           message: 'SQL Error. Make sure you passed corect movieId',
-          error: err.errno
-        });
+          error: err.errno,
+          id: req.params.id
+          });
+          con.release();
+        } else {
         res.status(201).json({
           message: `Comment was added successfuly to movie(movieId: ${req.params.id})`,
           comment: req.params.comment
         });
         con.release();
+      }
       });
     }
   });
@@ -33,6 +38,7 @@ router.get('/', (req, res, next) => {
   pool.getConnection((err, con) => {
     if (err) {
       res.send('Error ocured');
+      con.release();
     } else {
       con.query(queries.showAllComments, (err, result) => {
         if (err) res.status(500).json({
@@ -61,6 +67,7 @@ router.get('/:find', (req, res, next) => {
   pool.getConnection((err, con) => {
     if (err) {
       res.send('Error ocured');
+      con.release();
     } else {
       con.query(queries.showComment(req.query.Id), (err, result) => {
         if (err) res.status(500).json({

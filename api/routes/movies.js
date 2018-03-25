@@ -11,6 +11,7 @@ router.get('/', (req, res, next) => {
   pool.getConnection((err, con) => {
     if (err) {
       res.send('Error ocured');
+      con.release();
     } else {
       con.query(queries.showAllMovies, (err, result) => {
         if (err) res.status(500).json({
@@ -38,6 +39,7 @@ router.get('/:find', (req, res, next) => {
   pool.getConnection((err, con) => {
     if (err) {
       res.send('Error ocured');
+      con.release();
     } else {
       con.query(queries.showMovie(req.query.Title), (err, result) => {
         if (err) res.status(500).json({
@@ -65,6 +67,7 @@ router.get('/list/:sort', (req, res, next) => {
   pool.getConnection((err, con) => {
     if (err) {
       res.send('Error ocured');
+      con.release();
     } else {
       if(parseInt(req.query.Option) <=6) {
         con.query(queries.orderMovies(req.query.Option), (err, result) => {
@@ -127,6 +130,7 @@ router.post('/:title', (req, res, next) => {
   pool.getConnection((err, con) => {
     if (err) {
       res.send('Error ocured');
+      con.release();
     } else {
       axios.get('http://www.omdbapi.com/?s='+movieTitle+'&apikey=b3a0b8c6')
         .then(response => {
