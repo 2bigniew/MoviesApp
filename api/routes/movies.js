@@ -7,6 +7,7 @@ const queries = require('../../database/queries');
 const helpers = require('../helpers/helpers');
 
 router.get('/', (req, res, next) => {
+  con.connect();
   con.query(queries.showAllMovies, (err, result) => {
     if (err) res.status(500).json({
       message: 'SQL Error',
@@ -27,6 +28,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:find', (req, res, next) => {
+  con.connect();
   con.query(queries.showMovie(req.query.Title), (err, result) => {
     if (err) res.status(500).json({
       message: 'SQL Error',
@@ -47,6 +49,7 @@ router.get('/:find', (req, res, next) => {
 });
 
 router.get('/list/:sort', (req, res, next) => {
+  con.connect();
   if(parseInt(req.query.Option) <=6) {
     con.query(queries.orderMovies(req.query.Option), (err, result) => {
       if(err) res.status(500).json({
@@ -102,6 +105,7 @@ router.get('/list/:sort', (req, res, next) => {
 // });
 
 router.post('/:title', (req, res, next) => {
+  con.connect();
   const movieTitle = helpers.validateTitle(req.params.title);
   axios.get('http://www.omdbapi.com/?s='+movieTitle+'&apikey=b3a0b8c6')
     .then(response => {
