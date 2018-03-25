@@ -56,7 +56,8 @@ router.get('/:find', (req, res, next) => {
           });
         }
       });
-    }]con.release();
+    }
+    con.release();
   });
 });
 
@@ -82,6 +83,7 @@ router.get('/list/:sort', (req, res, next) => {
               data: result
             });
           }
+          con.release();
         });
 
       } else {
