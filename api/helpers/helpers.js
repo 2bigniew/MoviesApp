@@ -20,6 +20,9 @@ const helpers = {
       }
     });
     return parseInt(arr.join(''));
+    console.log(movieIdArr);
+    console.log(arr);
+    console.log(parseInt(arr.join('')));
   }
 };
 
