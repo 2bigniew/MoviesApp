@@ -5,6 +5,7 @@ const mysql = require('mysql');
 
 const app = express();
 
+const con = require('./database/connection');
 const moviesRoutes = require('./api/routes/movies');
 const commentsRoutes = require('./api/routes/comments');
 
@@ -17,6 +18,11 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
+  if(con.state === 'disconnected'){
+    con.connect( err => {
+      if (err) throw err;
+    });
+  }
   res.render('index');
 });
 
