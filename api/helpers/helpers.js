@@ -11,7 +11,7 @@ const helpers = {
     });
     return arr.join('');
   },
-  validateMovieId = function(movieId) {
+  validateMovieId: function(movieId) {
     let MovieIdArr = movieId.split('');
     let arr = [];
     MovieIdArr.map( x => {
