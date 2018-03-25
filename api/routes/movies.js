@@ -28,6 +28,7 @@ router.get('/', (req, res, next) => {
             data: result
           });
         }
+        con.release();
       });
     }
   });
