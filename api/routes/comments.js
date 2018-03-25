@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
+const pool = require('../../database/pool');
 const con = require('../../database/connection');
 const queries = require('../../database/queries');
 

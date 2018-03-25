@@ -9,6 +9,6 @@ const conConfig = {
   stringifyObjects: true
 };
 
-const pool = mysql createPool(conConfig);
+const pool = mysql.createPool(conConfig);
 
 module.exports = pool;
