@@ -5,7 +5,8 @@ const con = mysql.createConnection({
   user: 'bd7cda7106423d',
   password: '10942c9a',
   database: 'heroku_307692653aa85d1',
-  stringifyObjects: true
+  stringifyObjects: true,
+  connectTimeout: 86400000
 });
 
 module.exports = con;
