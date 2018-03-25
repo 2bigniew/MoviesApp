@@ -3,74 +3,93 @@ const router = express.Router();
 const axios = require('axios');
 
 const con = require('../../database/connection');
+const pool = require('../../database/pool');
 const queries = require('../../database/queries');
 const helpers = require('../helpers/helpers');
 
 router.get('/', (req, res, next) => {
-  con.query(queries.showAllMovies, (err, result) => {
-    if (err) res.status(500).json({
-      message: 'SQL Error',
-      error: err.errno
-    });
-
-    if (result.length === 0){
-      res.status(200).json({
-          message: 'There is not any movie in database'
-      });
+  pool.getConnection((err, con) => {
+    if(err) {
+      res.send('error occured');
     } else {
-      res.status(200).json({
-        message: "All movies from database",
-        data: result
+      con.query(queries.showAllMovies, (err, result) => {
+        if (err) res.status(500).json({
+          message: 'SQL Error',
+          error: err.errno
+        });
+
+        if (result.length === 0){
+          res.status(200).json({
+              message: 'There is not any movie in database'
+          });
+        } else {
+          res.status(200).json({
+            message: "All movies from database",
+            data: result
+          });
+        }
+        con.release();
       });
     }
   });
 });
 
 router.get('/:find', (req, res, next) => {
-  con.query(queries.showMovie(req.query.Title), (err, result) => {
-    if (err) res.status(500).json({
-      message: 'SQL Error',
-      error: err.errno
-    });
-
-    if (result.length === 0){
-      res.status(200).json({
-          message: `There is not movie '${req.query.Title}' in database`
-      });
+  pool.getConnection((err, con) =>{
+    if(err) {
+      res.send('error occured');
     } else {
-      res.status(200).json({
-        message: `result of search '${req.query.Title}'  in movies database`,
-        data: result
+      con.query(queries.showMovie(req.query.Title), (err, result) => {
+        if (err) res.status(500).json({
+          message: 'SQL Error',
+          error: err.errno
+        });
+
+        if (result.length === 0){
+          res.status(200).json({
+              message: `There is not movie '${req.query.Title}' in database`
+          });
+        } else {
+          res.status(200).json({
+            message: `result of search '${req.query.Title}'  in movies database`,
+            data: result
+          });
+        }
       });
-    }
+    }]con.release();
   });
 });
 
 router.get('/list/:sort', (req, res, next) => {
-  if(parseInt(req.query.Option) <=6) {
-    con.query(queries.orderMovies(req.query.Option), (err, result) => {
-      if(err) res.status(500).json({
-        message: 'SQL Error',
-        error: err.errno
-      });
+  pool.getConnection((err, con) =>{
+    if(err) {
+      res.send('error occured');
+    } else {
+      if(parseInt(req.query.Option) <=6) {
+        con.query(queries.orderMovies(req.query.Option), (err, result) => {
+          if(err) res.status(500).json({
+            message: 'SQL Error',
+            error: err.errno
+          });
 
-      if (result.length === 0) {
-        res.status(200).json({
-          message: 'There is not any movie in database'
+          if (result.length === 0) {
+            res.status(200).json({
+              message: 'There is not any movie in database'
+            });
+          } else {
+            res.status(200).json({
+              message: "All sorted movies from database",
+              data: result
+            });
+          }
         });
+
       } else {
         res.status(200).json({
-          message: "All sorted movies from database",
-          data: result
+          message: 'No option available. Option should equal number between 1-6.'
         });
       }
-    });
-
-  } else {
-    res.status(200).json({
-      message: 'No option available. Option should equal number between 1-6.'
-    });
-  }
+    }
 });
 
 //   if(req.query.Option <=6) {

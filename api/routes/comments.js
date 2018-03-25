@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require('axios');
 
 const con = require('../../database/connection');
+const pool = require('../../database/pool');
 const queries = require('../../database/queries');
 
 router.post('/:id&:comment', (req, res, next) => {
