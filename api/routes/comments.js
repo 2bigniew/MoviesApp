@@ -3,7 +3,6 @@ const router = express.Router();
 const axios = require('axios');
 
 const con = require('../../database/connection');
-const pool = require('../../database/pool');
 const queries = require('../../database/queries');
 
 router.post('/:id&:comment', (req, res, next) => {
@@ -18,6 +17,7 @@ router.post('/:id&:comment', (req, res, next) => {
       message: `Comment was added successfuly to movie(movieId: ${req.params.id})`,
       comment: req.params.comment
     });
+    con.release();
   });
 });
 
@@ -39,6 +39,7 @@ router.get('/', (req, res, next) => {
         data: result
       });
     }
+    con.release();
   });
 });
 
@@ -60,6 +61,7 @@ router.get('/:find', (req, res, next) => {
       })
     }
     //res.send(`<h1>Movie ID: ${req.params.movieId} comment: </h1><p>${JSON.stringify(result[0])}</p>`);
+    con.release();
   })
 })
 
