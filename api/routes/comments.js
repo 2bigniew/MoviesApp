@@ -25,6 +25,7 @@ router.post('/:id&:comment', (req, res, next) => {
         con.release();
       });
     }
+  });
 });
 
 router.get('/', (req, res, next) => {
@@ -52,6 +53,7 @@ router.get('/', (req, res, next) => {
         con.release();
       });
     }
+  });
 });
 
 router.get('/:find', (req, res, next) => {
@@ -79,6 +81,7 @@ router.get('/:find', (req, res, next) => {
         con.release();
       });
     }
+  });  
 });
 
 module.exports = router;

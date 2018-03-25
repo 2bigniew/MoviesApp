@@ -58,6 +58,7 @@ router.get('/:find', (req, res, next) => {
         con.release();
       });
     }
+  });
 });
 
 router.get('/list/:sort', (req, res, next) => {
@@ -90,6 +91,7 @@ router.get('/list/:sort', (req, res, next) => {
         });
       }
     }
+  });
 });
 
 //   if(req.query.Option <=6) {
@@ -148,6 +150,7 @@ router.post('/:title', (req, res, next) => {
         }));
         con.release();
     }
+  });
 });
 
 module.exports = router;
