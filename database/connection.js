@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 const con = mysql.createConnection({
-  host: 'localhost',
-  user: 'user1',
-  password: '1234abc',
-  database: 'movies_app',
+  host: 'us-cdbr-iron-east-05.cleardb.net',
+  user: 'bd7cda7106423d',
+  password: '10942c9a',
+  database: 'heroku_307692653aa85d1',
   stringifyObjects: true
 });
 
