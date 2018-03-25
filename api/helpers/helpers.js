@@ -12,17 +12,8 @@ const helpers = {
     return arr.join('');
   },
   validateMovieId: function(movieId) {
-    let MovieIdArr = movieId.split('');
-    let arr = [];
-    MovieIdArr.map( x => {
-      if(parsenInt(x) === true){
-        arr.push(x)
-      }
-    });
-    return parseInt(arr.join(''));
-    console.log(movieIdArr);
-    console.log(arr);
-    console.log(parseInt(arr.join('')));
+    let MovieIdArr = parseInt(movieId);
+    console.log(MovieIdArr);
   }
 };
 
