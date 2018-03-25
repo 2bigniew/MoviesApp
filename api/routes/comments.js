@@ -6,7 +6,6 @@ const con = require('../../database/connection');
 const queries = require('../../database/queries');
 
 router.post('/:id&:comment', (req, res, next) => {
-  con.connect();
   const movieId = req.params.id;
   const comment = req.params.comment;
   con.query(queries.addComment(comment, movieId), (err, result) => {
@@ -22,7 +21,6 @@ router.post('/:id&:comment', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-  con.connect();
   con.query(queries.showAllComments, (err, result) => {
     if (err) res.status(500).json({
       message: 'SQL Error',
@@ -44,7 +42,6 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:find', (req, res, next) => {
-  con.connect();
   con.query(queries.showComment(req.query.Id), (err, result) => {
     if (err) res.status(500).json({
       message: 'SQL Error',
