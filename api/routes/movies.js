@@ -2,28 +2,34 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
+const pool = require('../../database/pool');
 const con = require('../../database/connection');
 const queries = require('../../database/queries');
 const helpers = require('../helpers/helpers');
 
 router.get('/', (req, res, next) => {
-  con.query(queries.showAllMovies, (err, result) => {
-    if (err) res.status(500).json({
-      message: 'SQL Error',
-      error: err.errno
-    });
-
-    if (result.length === 0){
-      res.status(200).json({
-          message: 'There is not any movie in database'
-      });
+  pool.getConnection((err, con) => {
+    if (err) {
+      res.send('Error ocured');
     } else {
-      res.status(200).json({
-        message: "All movies from database",
-        data: result
+      con.query(queries.showAllMovies, (err, result) => {
+        if (err) res.status(500).json({
+          message: 'SQL Error',
+          error: err.errno
+        });
+
+        if (result.length === 0){
+          res.status(200).json({
+              message: 'There is not any movie in database'
+          });
+        } else {
+          res.status(200).json({
+            message: "All movies from database",
+            data: result
+          });
+        }
       });
     }
-    con.release();
   });
 });
 
@@ -44,7 +50,6 @@ router.get('/:find', (req, res, next) => {
         data: result
       });
     }
-    con.release();
   });
 });
 
@@ -66,7 +71,6 @@ router.get('/list/:sort', (req, res, next) => {
           data: result
         });
       }
-      con.release();
     });
 
   } else {
@@ -117,7 +121,6 @@ router.post('/:title', (req, res, next) => {
       ), (err, result) => {
         if(err) throw err;
       })
-      con.release();
       res.status(201).json({
         message: `'${response.data.Search[0].Title}' movie was successfuly added to the database`,
         movieData: response.data.Search[0]
